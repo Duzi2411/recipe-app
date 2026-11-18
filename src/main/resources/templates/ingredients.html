@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="bg" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Продукти</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<header>
+    <h1>Продукти</h1>
+    <p>Организирай продуктите за своите рецепти!</p>
+</header>
+
+<main>
+    <nav>
+        <a th:href="@{/}">Начало</a>
+        <a th:href="@{/ingredients/add}">Добави продукт</a>
+        <a th:href="@{/recipes}">Всички рецепти</a>
+    </nav>
+
+    <section>
+        <h2>Всички продукти</h2>
+
+        <p th:if="${#lists.isEmpty(ingredients)}">
+            Все още няма добавени продукти.
+        </p>
+
+        <div th:each="ingredient : ${ingredients}">
+            <h3 th:text="${ingredient.name}">Име на продукт</h3>
+            <p th:text="${ingredient.description}">Описание</p>
+
+            <a th:href="@{/ingredients/{id}/edit(id=${ingredient.id})}">
+                Редактирай
+            </a>
+
+            <form th:action="@{/ingredients/{id}/delete(id=${ingredient.id})}"
+                  method="post">
+                <button type="submit">Изтрий</button>
+            </form>
+
+            <hr>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2026 Recipe App</p>
+</footer>
+
+</body>
+</html>

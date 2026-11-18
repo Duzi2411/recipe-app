@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="bg" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирай хранене</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<main class="container">
+    <h1>Редактирай планирано хранене</h1>
+
+    <form th:action="@{/meal-plans/{id}/edit(id=${mealPlan.id})}"
+          th:object="${mealPlan}" method="post">
+
+        <label>Име</label>
+        <input type="text" th:field="*{title}">
+        <p class="error" th:if="${#fields.hasErrors('title')}"
+           th:errors="*{title}"></p>
+
+        <label>Дата</label>
+        <input type="date" th:field="*{plannedDate}">
+        <p class="error" th:if="${#fields.hasErrors('plannedDate')}"
+           th:errors="*{plannedDate}"></p>
+
+        <label>Бележки</label>
+        <textarea th:field="*{notes}"></textarea>
+        <p class="error" th:if="${#fields.hasErrors('notes')}"
+           th:errors="*{notes}"></p>
+
+        <label>Рецепта</label>
+        <select name="recipeId" required>
+            <option th:each="recipe : ${recipes}"
+                    th:value="${recipe.id}"
+                    th:text="${recipe.title}"
+                    th:selected="${recipe.id == mealPlan.recipe.id}">
+            </option>
+        </select>
+
+        <button type="submit">Запази промените</button>
+    </form>
+
+    <a th:href="@{/meal-plans}">Назад</a>
+</main>
+</body>
+</html>

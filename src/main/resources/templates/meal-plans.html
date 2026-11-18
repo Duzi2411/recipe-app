@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="bg" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Планирани хранения</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<main class="container">
+    <h1>Планирани хранения</h1>
+
+    <a th:href="@{/meal-plans/add}">Добави хранене</a>
+
+    <p th:if="${#lists.isEmpty(mealPlans)}">
+        Все още няма планирани хранения.
+    </p>
+
+    <div th:each="mealPlan : ${mealPlans}">
+        <h2 th:text="${mealPlan.title}"></h2>
+        <p>
+            Дата:
+            <span th:text="${mealPlan.plannedDate}"></span>
+        </p>
+        <p>
+            Рецепта:
+            <span th:text="${mealPlan.recipe.title}"></span>
+        </p>
+        <p th:text="${mealPlan.notes}"></p>
+
+        <a th:href="@{/meal-plans/{id}/edit(id=${mealPlan.id})}">
+            Редактирай
+        </a>
+
+        <form th:action="@{/meal-plans/{id}/delete(id=${mealPlan.id})}"
+              method="post">
+            <button type="submit">Изтрий</button>
+        </form>
+    </div>
+
+    <a th:href="@{/}">Начало</a>
+</main>
+</body>
+</html>

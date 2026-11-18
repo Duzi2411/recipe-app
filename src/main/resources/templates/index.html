@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="bg" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe App</title>
+  <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<main class="container">
+
+  <h1>Добре дошли в Recipe App!</h1>
+  <p>Откривай, създавай и управлявай любимите си рецепти.</p>
+
+  <nav>
+    <a th:if="${session.user_id == null}" th:href="@{/login}">Вход</a>
+    <a th:if="${session.user_id == null}" th:href="@{/register}">Регистрация</a>
+
+    <a th:if="${session.user_id != null}" th:href="@{/recipes}">Рецепти</a>
+
+    <a th:if="${session.user_id != null}" th:href="@{/meal-plans}">Планирани хранения</a>
+
+    <a th:if="${session.user_role == 'ADMIN'}" th:href="@{/categories}">Категории</a>
+    <a th:if="${session.user_role == 'ADMIN'}" th:href="@{/ingredients}">Съставки</a>
+
+    <form th:if="${session.user_id != null}"
+          th:action="@{/logout}" method="post">
+      <button type="submit">Изход</button>
+    </form>
+  </nav>
+
+  <section th:if="${session.user_id == null}">
+    <h2>Започни своето кулинарно приключение!</h2>
+    <p>Влез в профила си или се регистрирай, за да използваш приложението.</p>
+  </section>
+
+  <section th:if="${session.user_id != null}">
+    <h2>Радваме се, че си тук!</h2>
+    <p>Избери рецепта и започни да готвиш.</p>
+    <a th:href="@{/recipes}">Разгледай рецептите</a>
+  </section>
+
+</main>
+
+</body>
+</html>

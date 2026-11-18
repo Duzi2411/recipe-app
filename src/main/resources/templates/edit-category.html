@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="bg" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактирай категория</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<header>
+    <h1>Редактирай категория</h1>
+    <p>Промени информацията за категорията.</p>
+</header>
+
+<main>
+    <nav>
+        <a th:href="@{/}">Начало</a>
+        <a th:href="@{/categories}">Всички категории</a>
+    </nav>
+
+    <section>
+        <h2>Редактиране</h2>
+
+        <form th:action="@{/categories/{id}/edit(id=${category.id})}"
+              th:object="${category}"
+              method="post">
+
+            <label for="name">Име:</label>
+            <input type="text" id="name" th:field="*{name}">
+
+            <p class="error"
+               th:if="${#fields.hasErrors('name')}"
+               th:errors="*{name}"></p>
+
+            <br><br>
+
+            <label for="description">Описание:</label>
+            <textarea id="description" th:field="*{description}"></textarea>
+
+            <p class="error"
+               th:if="${#fields.hasErrors('description')}"
+               th:errors="*{description}"></p>
+
+            <br><br>
+
+            <button type="submit">Запази промените</button>
+        </form>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2026 Recipe App</p>
+</footer>
+
+</body>
+</html>

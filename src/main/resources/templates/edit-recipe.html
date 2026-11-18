@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="bg" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Редактирай рецепта</title>
+  <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<header>
+  <h1>Редактирай рецепта</h1>
+  <p>Промени информацията за своето ястие!</p>
+</header>
+
+<main>
+  <nav>
+    <a th:href="@{/}">Начало</a>
+    <a th:href="@{/recipes}">Всички рецепти</a>
+  </nav>
+
+  <section>
+    <h2>Информация за рецептата</h2>
+
+    <form th:action="@{/recipes/{id}/edit(id=${recipe.id})}"
+          th:object="${recipe}"
+          method="post">
+
+      <label for="title">Име на рецептата:</label>
+      <input type="text" id="title" th:field="*{title}">
+      <p class="error" th:if="${#fields.hasErrors('title')}"
+         th:errors="*{title}"></p>
+
+      <br><br>
+
+      <label for="description">Описание:</label>
+      <textarea id="description" th:field="*{description}"></textarea>
+      <p class="error" th:if="${#fields.hasErrors('description')}"
+         th:errors="*{description}"></p>
+
+      <br><br>
+
+      <label for="instructions">Начин на приготвяне:</label>
+      <textarea id="instructions" th:field="*{instructions}"></textarea>
+      <p class="error" th:if="${#fields.hasErrors('instructions')}"
+         th:errors="*{instructions}"></p>
+
+      <br><br>
+
+      <label for="preparationTime">Време за приготвяне (минути):</label>
+      <input type="number" id="preparationTime"
+             th:field="*{preparationTime}">
+      <p class="error" th:if="${#fields.hasErrors('preparationTime')}"
+         th:errors="*{preparationTime}"></p>
+
+      <br><br>
+
+      <label for="servings">Брой порции:</label>
+      <input type="number" id="servings" th:field="*{servings}">
+      <p class="error" th:if="${#fields.hasErrors('servings')}"
+         th:errors="*{servings}"></p>
+
+      <br><br>
+
+      <label for="categoryId">Категория:</label>
+      <select id="categoryId" name="categoryId" required>
+        <option th:each="category : ${categories}"
+                th:value="${category.id}"
+                th:text="${category.name}"
+                th:selected="${category.id == recipe.category.id}">
+        </option>
+      </select>
+
+      <br><br>
+
+      <button type="submit">Запази промените</button>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2026 Recipe App</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="bg" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Всички рецепти</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<header>
+    <h1>Всички рецепти</h1>
+    <p>Открий нещо вкусно за приготвяне!</p>
+</header>
+
+<main>
+    <nav>
+        <a th:href="@{/}">Начало</a>
+        <a th:href="@{/recipes/add}">Добави рецепта</a>
+    </nav>
+
+    <section>
+        <h2>Нашите рецепти</h2>
+
+        <p th:if="${#lists.isEmpty(recipes)}">
+            Все още няма добавени рецепти.
+        </p>
+
+        <div th:each="recipe : ${recipes}">
+            <h3 th:text="${recipe.title}">Име на рецептата</h3>
+
+            <p th:text="${recipe.description}">Описание</p>
+
+            <p>
+                Време за приготвяне:
+                <span th:text="${recipe.preparationTime}"></span> минути
+            </p>
+
+            <p>
+                Порции:
+                <span th:text="${recipe.servings}"></span>
+            </p>
+
+            <p>
+                Категория:
+                <span th:text="${recipe.category.name}"></span>
+            </p>
+
+            <a th:href="@{/recipes/{id}(id=${recipe.id})}">
+                Виж рецептата
+            </a>
+
+            <hr>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2026 Recipe App</p>
+</footer>
+
+</body>
+</html>

@@ -1,6 +1,7 @@
 package com.example.recipeapp.service;
 
 import com.example.recipeapp.entity.Ingredient;
+import com.example.recipeapp.exception.IngredientNotFoundException;
 import com.example.recipeapp.repository.IngredientRepository;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,10 @@ public class IngredientService {
 
     public Ingredient findById(UUID id) {
         return ingredientRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Ingredient not found"));
+                .orElseThrow(() ->
+                        new IngredientNotFoundException(
+                                "Продуктът с ID " + id + " не е намерен."
+                        ));
     }
 
     public Ingredient create(Ingredient ingredient) {

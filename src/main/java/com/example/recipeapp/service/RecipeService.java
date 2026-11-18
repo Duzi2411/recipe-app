@@ -1,6 +1,7 @@
 package com.example.recipeapp.service;
 
 import com.example.recipeapp.entity.Recipe;
+import com.example.recipeapp.exception.RecipeNotFoundException;
 import com.example.recipeapp.repository.RecipeRepository;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,10 @@ public class RecipeService {
 
     public Recipe findById(UUID id) {
         return recipeRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Recipe not found"));
+                .orElseThrow(() ->
+                        new RecipeNotFoundException(
+                                "Рецептата с ID " + id + " не е намерена."
+                        ));
     }
 
     public Recipe create(Recipe recipe) {

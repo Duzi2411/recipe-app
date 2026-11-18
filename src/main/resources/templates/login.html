@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="bg" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Вход</title>
+  <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<main class="container">
+  <h1>Вход в профила</h1>
+
+  <p th:if="${param.registered}" class="success">
+    Регистрацията е успешна! Можеш да влезеш.
+  </p>
+
+  <p th:if="${error}" th:text="${error}" class="error"></p>
+
+  <form th:action="@{/login}" method="post">
+    <label for="username">Потребителско име</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="password">Парола</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit">Вход</button>
+  </form>
+
+  <p>Нямаш профил? <a th:href="@{/register}">Регистрирай се</a></p>
+  <a th:href="@{/}">Начало</a>
+</main>
+</body>
+</html>

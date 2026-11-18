@@ -1,6 +1,7 @@
 package com.example.recipeapp.service;
 
 import com.example.recipeapp.entity.Category;
+import com.example.recipeapp.exception.CategoryNotFoundException;
 import com.example.recipeapp.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,10 @@ public class CategoryService {
 
     public Category findById(UUID id) {
         return categoryRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Category not found"));
+                .orElseThrow(() ->
+                        new CategoryNotFoundException(
+                                "Категорията с ID " + id + " не е намерена."
+                        ));
     }
 
     public Category create(Category category) {
