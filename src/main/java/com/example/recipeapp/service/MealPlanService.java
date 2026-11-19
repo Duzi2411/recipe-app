@@ -1,6 +1,7 @@
 package com.example.recipeapp.service;
 
 import com.example.recipeapp.entity.MealPlan;
+import com.example.recipeapp.exception.MealPlanNotFoundException;
 import com.example.recipeapp.repository.MealPlanRepository;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class MealPlanService {
 
     public MealPlan findById(UUID id) {
         return mealPlanRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException(
+                .orElseThrow(() -> new MealPlanNotFoundException(
                         "Планираното хранене не е намерено."
                 ));
     }

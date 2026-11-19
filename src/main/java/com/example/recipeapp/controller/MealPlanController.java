@@ -42,8 +42,13 @@ public class MealPlanController {
     public String create(
             @Valid @ModelAttribute("mealPlan") MealPlan mealPlan,
             BindingResult bindingResult,
-            @RequestParam UUID recipeId,
+            @RequestParam(required = false) UUID recipeId,
             Model model) {
+
+        if (recipeId == null) {
+            bindingResult.rejectValue("recipe", "NotNull",
+                    "Избери рецепта.");
+        }
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("recipes", recipeService.findAll());
@@ -52,6 +57,7 @@ public class MealPlanController {
 
         mealPlan.setRecipe(recipeService.findById(recipeId));
         mealPlanService.create(mealPlan);
+
         return "redirect:/meal-plans";
     }
 
@@ -67,8 +73,13 @@ public class MealPlanController {
             @PathVariable UUID id,
             @Valid @ModelAttribute("mealPlan") MealPlan updatedMealPlan,
             BindingResult bindingResult,
-            @RequestParam UUID recipeId,
+            @RequestParam(required = false) UUID recipeId,
             Model model) {
+
+        if (recipeId == null) {
+            bindingResult.rejectValue("recipe", "NotNull",
+                    "Избери рецепта.");
+        }
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("recipes", recipeService.findAll());
@@ -77,6 +88,7 @@ public class MealPlanController {
 
         updatedMealPlan.setRecipe(recipeService.findById(recipeId));
         mealPlanService.update(id, updatedMealPlan);
+
         return "redirect:/meal-plans";
     }
 
