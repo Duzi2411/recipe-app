@@ -3,53 +3,102 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Подробности за рецептата</title>
+  <title>Подробности за рецептата | Recipe App</title>
   <link rel="stylesheet" th:href="@{/style.css}">
 </head>
-<body>
+<body class="management-page">
 
-<header>
+<header class="compact-header">
   <h1 th:text="${recipe.title}">Име на рецептата</h1>
   <p>Подробности за любимото ти ястие!</p>
 </header>
 
-<main>
-  <nav>
-    <a th:href="@{/}">Начало</a>
-    <a th:href="@{/recipes}">Всички рецепти</a>
-    <a th:href="@{/recipes/{id}/edit(id=${recipe.id})}">Редактирай</a>
+<main class="management-container">
+
+  <nav class="management-nav">
+    <a th:href="@{/}" class="management-link">← Начало</a>
+    <a th:href="@{/recipes}" class="management-link">Всички рецепти</a>
   </nav>
 
-  <section>
-    <h2>Описание</h2>
-    <p th:text="${recipe.description}"></p>
+  <section class="recipe-details-section">
 
-    <h2>Начин на приготвяне</h2>
-    <p th:text="${recipe.instructions}"></p>
+    <div class="recipe-details-heading">
+      <span class="recipe-details-icon">🍽️</span>
+      <h2>Информация за рецептата</h2>
+    </div>
 
-    <p>
-      Време за приготвяне:
-      <span th:text="${recipe.preparationTime}"></span> минути
-    </p>
+    <div class="recipe-details-content">
 
-    <p>
-      Порции:
-      <span th:text="${recipe.servings}"></span>
-    </p>
+      <div class="recipe-detail-block">
+        <h3>📝 Описание</h3>
+        <p th:text="${recipe.description}">Описание на рецептата</p>
+      </div>
 
-    <p>
-      Категория:
-      <span th:text="${recipe.category.name}"></span>
-    </p>
+      <div class="recipe-detail-block">
+        <h3>👩‍🍳 Начин на приготвяне</h3>
+        <p class="recipe-instructions"
+           th:text="${recipe.instructions}">
+          Начин на приготвяне
+        </p>
+      </div>
 
-    <form th:action="@{/recipes/{id}/delete(id=${recipe.id})}"
-          method="post">
-      <button type="submit">Изтрий рецептата</button>
-    </form>
+      <div class="recipe-details-info">
+
+        <div class="recipe-info-item">
+          <span class="recipe-info-icon">⏱️</span>
+          <div>
+            <span class="recipe-info-label">Време за приготвяне</span>
+            <strong>
+              <span th:text="${recipe.preparationTime}"></span> минути
+            </strong>
+          </div>
+        </div>
+
+        <div class="recipe-info-item">
+          <span class="recipe-info-icon">🍴</span>
+          <div>
+            <span class="recipe-info-label">Брой порции</span>
+            <strong th:text="${recipe.servings}"></strong>
+          </div>
+        </div>
+
+        <div class="recipe-info-item">
+          <span class="recipe-info-icon">📂</span>
+          <div>
+            <span class="recipe-info-label">Категория</span>
+            <strong th:if="${recipe.category != null}"
+                    th:text="${recipe.category.name}"></strong>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="recipe-details-actions">
+
+        <a th:href="@{/recipes/{id}/edit(id=${recipe.id})}"
+           class="management-button">
+          ✏️ Редактирай рецептата
+        </a>
+
+        <form th:action="@{/recipes/{id}/delete(id=${recipe.id})}"
+              method="post"
+              onsubmit="return confirm('Сигурни ли сте, че искате да изтриете тази рецепта?');">
+
+          <button type="submit" class="delete-button">
+            🗑️ Изтрий рецептата
+          </button>
+
+        </form>
+
+      </div>
+
+    </div>
+
   </section>
+
 </main>
 
-<footer>
+<footer class="management-footer">
   <p>&copy; 2026 Recipe App</p>
 </footer>
 

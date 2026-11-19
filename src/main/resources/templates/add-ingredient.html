@@ -3,53 +3,77 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Добави продукт</title>
+  <title>Добави продукт | Recipe App</title>
   <link rel="stylesheet" th:href="@{/style.css}">
 </head>
-<body>
+<body class="management-page">
 
-<header>
-  <h1>Добави продукт</h1>
+<header class="compact-header">
+  <h1>🥕 Добави продукт</h1>
   <p>Добави нов продукт към своя списък!</p>
 </header>
 
-<main>
-  <nav>
-    <a th:href="@{/}">Начало</a>
-    <a th:href="@{/ingredients}">Всички продукти</a>
+<main class="management-container">
+
+  <nav class="management-nav">
+    <a th:href="@{/}" class="management-link">← Начало</a>
+    <a th:href="@{/ingredients}" class="management-link">
+      Всички продукти
+    </a>
   </nav>
 
-  <section>
-    <h2>Информация за продукта</h2>
+  <section class="form-section">
+    <div class="form-heading">
+      <div class="management-icon">🥕</div>
+      <h2>Информация за продукта</h2>
+      <p>Попълни данните за новия продукт.</p>
+    </div>
 
     <form th:action="@{/ingredients/add}"
           th:object="${ingredient}"
-          method="post">
+          method="post"
+          class="styled-form">
 
-      <label for="name">Име:</label>
-      <input type="text" id="name" th:field="*{name}">
+      <div class="form-group">
+        <label for="name">Име на продукта</label>
+        <input type="text"
+               id="name"
+               th:field="*{name}"
+               placeholder="Например: Домати">
 
-      <p class="error"
-         th:if="${#fields.hasErrors('name')}"
-         th:errors="*{name}"></p>
+        <p class="error"
+           th:if="${#fields.hasErrors('name')}"
+           th:errors="*{name}"></p>
+      </div>
 
-      <br><br>
+      <div class="form-group">
+        <label for="description">Описание</label>
+        <textarea id="description"
+                  th:field="*{description}"
+                  rows="4"
+                  placeholder="Кратко описание на продукта..."></textarea>
 
-      <label for="description">Описание:</label>
-      <textarea id="description" th:field="*{description}"></textarea>
+        <p class="error"
+           th:if="${#fields.hasErrors('description')}"
+           th:errors="*{description}"></p>
+      </div>
 
-      <p class="error"
-         th:if="${#fields.hasErrors('description')}"
-         th:errors="*{description}"></p>
+      <div class="form-actions">
+        <button type="submit" class="management-button">
+          Запази продукта
+        </button>
 
-      <br><br>
+        <a th:href="@{/ingredients}" class="cancel-button">
+          Отказ
+        </a>
+      </div>
 
-      <button type="submit">Запази продукта</button>
     </form>
   </section>
+
 </main>
 
-<footer>
+<footer class="management-footer">
   <p>&copy; 2026 Recipe App</p>
 </footer>
 

@@ -46,8 +46,27 @@ public class AuthController {
             );
 
             return "redirect:/login?registered";
+
         } catch (IllegalArgumentException e) {
-            model.addAttribute("error", e.getMessage());
+
+            if ("Това потребителско име вече съществува.".equals(e.getMessage())) {
+                bindingResult.rejectValue(
+                        "username",
+                        "duplicate",
+                        e.getMessage()
+                );
+
+            } else if ("Този имейл вече е регистриран.".equals(e.getMessage())) {
+                bindingResult.rejectValue(
+                        "email",
+                        "duplicate",
+                        e.getMessage()
+                );
+
+            } else {
+                model.addAttribute("error", e.getMessage());
+            }
+
             return "register";
         }
     }
@@ -76,6 +95,7 @@ public class AuthController {
             session.setAttribute("user_role", user.getRole().name());
 
             return "redirect:/";
+
         } catch (IllegalArgumentException e) {
             model.addAttribute("error", "Невалидно потребителско име или парола.");
             return "login";

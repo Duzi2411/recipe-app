@@ -2,31 +2,78 @@
 <html lang="bg" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Вход</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Вход | Recipe App</title>
   <link rel="stylesheet" th:href="@{/style.css}">
 </head>
-<body>
-<main class="container">
-  <h1>Вход в профила</h1>
+<body class="management-page">
 
-  <p th:if="${param.registered}" class="success">
-    Регистрацията е успешна! Можеш да влезеш.
-  </p>
+<header class="compact-header">
+  <h1>👩‍🍳 Добре дошъл отново!</h1>
+  <p>Влез в профила си и открий любимите си рецепти.</p>
+</header>
 
-  <p th:if="${error}" th:text="${error}" class="error"></p>
+<main class="management-container login-container">
 
-  <form th:action="@{/login}" method="post">
-    <label for="username">Потребителско име</label>
-    <input type="text" id="username" name="username" required>
+  <section class="form-section login-section">
 
-    <label for="password">Парола</label>
-    <input type="password" id="password" name="password" required>
+    <div class="form-heading">
+      <div class="management-icon">🔐</div>
+      <h2>Вход в профила</h2>
+      <p>Въведи потребителското си име и парола.</p>
+    </div>
 
-    <button type="submit">Вход</button>
-  </form>
+    <p th:if="${param.registered}" class="success">
+      Регистрацията е успешна! Можеш да влезеш.
+    </p>
 
-  <p>Нямаш профил? <a th:href="@{/register}">Регистрирай се</a></p>
-  <a th:href="@{/}">Начало</a>
+    <p th:if="${error}" th:text="${error}" class="error"></p>
+
+    <form th:action="@{/login}" method="post" class="styled-form">
+
+      <div class="form-group">
+        <label for="username">Потребителско име</label>
+        <input type="text"
+               id="username"
+               name="username"
+               placeholder="Въведи потребителско име"
+               autocomplete="username"
+               required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Парола</label>
+        <input type="password"
+               id="password"
+               name="password"
+               placeholder="Въведи парола"
+               autocomplete="current-password"
+               required>
+      </div>
+
+      <div class="form-actions login-actions">
+        <button type="submit" class="management-button">
+          Вход
+        </button>
+      </div>
+
+    </form>
+
+    <div class="login-links">
+      <p>Нямаш профил?
+        <a th:href="@{/register}">Регистрирай се</a>
+      </p>
+
+      <a th:href="@{/}" class="management-link">← Обратно към началото</a>
+    </div>
+
+  </section>
+
 </main>
+
+<footer class="management-footer">
+  <p>&copy; 2026 Recipe App</p>
+</footer>
+
 </body>
 </html>

@@ -2,44 +2,101 @@
 <html lang="bg" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Редактирай хранене</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактирай хранене | Recipe App</title>
     <link rel="stylesheet" th:href="@{/style.css}">
 </head>
-<body>
-<main class="container">
-    <h1>Редактирай планирано хранене</h1>
+<body class="management-page">
 
-    <form th:action="@{/meal-plans/{id}/edit(id=${mealPlan.id})}"
-          th:object="${mealPlan}" method="post">
+<header class="compact-header">
+    <h1>✏️ Редактирай планирано хранене</h1>
+    <p>Промени информацията за своето планирано ястие!</p>
+</header>
 
-        <label>Име</label>
-        <input type="text" th:field="*{title}">
-        <p class="error" th:if="${#fields.hasErrors('title')}"
-           th:errors="*{title}"></p>
+<main class="management-container">
 
-        <label>Дата</label>
-        <input type="date" th:field="*{plannedDate}">
-        <p class="error" th:if="${#fields.hasErrors('plannedDate')}"
-           th:errors="*{plannedDate}"></p>
+    <nav class="management-nav">
+        <a th:href="@{/}" class="management-link">← Начало</a>
+        <a th:href="@{/meal-plans}" class="management-link">Всички планирани хранения</a>
+    </nav>
 
-        <label>Бележки</label>
-        <textarea th:field="*{notes}"></textarea>
-        <p class="error" th:if="${#fields.hasErrors('notes')}"
-           th:errors="*{notes}"></p>
+    <section class="form-section recipe-form-section">
 
-        <label>Рецепта</label>
-        <select name="recipeId" required>
-            <option th:each="recipe : ${recipes}"
-                    th:value="${recipe.id}"
-                    th:text="${recipe.title}"
-                    th:selected="${recipe.id == mealPlan.recipe.id}">
-            </option>
-        </select>
+        <div class="form-heading">
+            <div class="management-icon">📅</div>
+            <h2>Информация за храненето</h2>
+            <p>Направи необходимите промени и ги запази.</p>
+        </div>
 
-        <button type="submit">Запази промените</button>
-    </form>
+        <form th:action="@{/meal-plans/{id}/edit(id=${mealPlan.id})}"
+              th:object="${mealPlan}"
+              method="post"
+              class="styled-form">
 
-    <a th:href="@{/meal-plans}">Назад</a>
+            <div class="form-group">
+                <label for="title">Име</label>
+                <input type="text"
+                       id="title"
+                       th:field="*{title}"
+                       placeholder="Например: Семейна вечеря">
+
+                <p class="error"
+                   th:if="${#fields.hasErrors('title')}"
+                   th:errors="*{title}"></p>
+            </div>
+
+            <div class="form-group">
+                <label for="plannedDate">Дата</label>
+                <input type="date"
+                       id="plannedDate"
+                       th:field="*{plannedDate}">
+
+                <p class="error"
+                   th:if="${#fields.hasErrors('plannedDate')}"
+                   th:errors="*{plannedDate}"></p>
+            </div>
+
+            <div class="form-group">
+                <label for="notes">Бележки</label>
+                <textarea id="notes"
+                          th:field="*{notes}"
+                          rows="3"
+                          placeholder="Добави допълнителни бележки..."></textarea>
+
+                <p class="error"
+                   th:if="${#fields.hasErrors('notes')}"
+                   th:errors="*{notes}"></p>
+            </div>
+
+            <div class="form-group">
+                <label for="recipeId">Рецепта</label>
+                <select id="recipeId" name="recipeId" required>
+                    <option th:each="recipe : ${recipes}"
+                            th:value="${recipe.id}"
+                            th:text="${recipe.title}"
+                            th:selected="${mealPlan.recipe != null and recipe.id == mealPlan.recipe.id}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="management-button">
+                    Запази промените
+                </button>
+
+                <a th:href="@{/meal-plans}" class="cancel-button">
+                    Отказ
+                </a>
+            </div>
+
+        </form>
+    </section>
+
 </main>
+
+<footer class="management-footer">
+    <p>&copy; 2026 Recipe App</p>
+</footer>
+
 </body>
 </html>

@@ -1,32 +1,81 @@
+/* ==============================
+   GLOBAL SETTINGS
+============================== */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #fffaf5;
-    color: #333;
-    line-height: 1.6;
+:root {
+    --primary: #873b43;
+    --primary-dark: #642b33;
+    --primary-light: #b76b70;
+    --accent: #d69a79;
+    --background: #faf5ef;
+    --white: #ffffff;
+    --text: #38302e;
+    --muted: #817572;
+    --border: #eaded7;
+    --error: #c62828;
+    --success: #2e7d32;
+    --shadow: 0 8px 25px rgba(75, 43, 38, 0.08);
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+}
+
+h1, h2, h3 {
+    line-height: 1.3;
+}
+
+p {
+    margin-bottom: 12px;
+}
+
+/* ==============================
+   HEADER
+============================== */
+
 header {
-    background-color: #8b3a3a;
+    background: linear-gradient(135deg, #873b43, #642b33);
     color: white;
     text-align: center;
-    padding: 35px 20px;
+    padding: 55px 20px;
+    box-shadow: 0 4px 15px rgba(70, 30, 35, 0.15);
 }
 
 header h1 {
-    font-size: 36px;
+    font-size: clamp(30px, 5vw, 44px);
+    font-weight: 700;
+    letter-spacing: 0.5px;
     margin-bottom: 10px;
 }
 
+header p {
+    font-size: 17px;
+    color: #f5e5df;
+}
+
+/* ==============================
+   MAIN CONTENT
+============================== */
+
 main {
-    max-width: 1000px;
-    margin: 40px auto;
-    padding: 20px;
+    max-width: 1100px;
+    width: 92%;
+    margin: 45px auto;
+    padding: 25px;
 }
 
 section {
@@ -35,21 +84,27 @@ section {
 }
 
 section h2 {
-    color: #8b3a3a;
+    color: var(--primary);
     font-size: 28px;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
+    font-weight: 700;
 }
 
+/* ==============================
+   NAVIGATION
+============================== */
+
 nav {
-    background-color: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(135, 59, 67, 0.06);
 }
 
 nav h2 {
-    color: #8b3a3a;
-    margin-bottom: 15px;
+    color: var(--primary);
+    margin-bottom: 20px;
 }
 
 nav ul {
@@ -57,30 +112,1552 @@ nav ul {
 }
 
 nav li {
-    margin: 12px 0;
+    margin: 14px 0;
 }
 
 nav a {
-    color: #8b3a3a;
+    display: inline-block;
+    color: var(--primary);
     text-decoration: none;
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 17px;
+    font-weight: 600;
+    transition: 0.25s ease;
 }
 
 nav a:hover {
-    color: #c46b45;
+    color: var(--accent);
+    transform: translateX(4px);
 }
+
+/* ==============================
+   LINKS
+============================== */
+
+a {
+    color: var(--primary);
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--accent);
+}
+
+/* ==============================
+   BUTTONS
+============================== */
+
+button,
+input[type="submit"],
+input[type="button"] {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 9px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(100, 43, 51, 0.2);
+}
+
+button:active,
+input[type="submit"]:active {
+    transform: translateY(0);
+}
+
+/* ==============================
+   FORMS
+============================== */
+
+form {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    margin: 25px 0;
+}
+
+form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 7px;
+    color: var(--primary-dark);
+}
+
+input:not([type="submit"]):not([type="button"]):not([type="checkbox"]),
+select,
+textarea {
+    width: 100%;
+    padding: 12px 14px;
+    margin: 7px 0 18px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: #fffdfb;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 15px;
+    outline: none;
+    transition: 0.2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(135, 59, 67, 0.1);
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+form button,
+form input[type="submit"] {
+    margin-top: 8px;
+}
+
+/* ==============================
+   CARDS
+============================== */
+
+.card,
+.recipe-card,
+.meal-plan-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(135, 59, 67, 0.06);
+    transition: 0.25s ease;
+}
+
+.card:hover,
+.recipe-card:hover,
+.meal-plan-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(75, 43, 38, 0.12);
+}
+
+/* ==============================
+   TABLES
+============================== */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    margin: 25px 0;
+}
+
+th {
+    background: var(--primary);
+    color: white;
+    padding: 15px;
+    text-align: left;
+}
+
+td {
+    padding: 14px 15px;
+    border-bottom: 1px solid var(--border);
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background-color: #fcf5f1;
+}
+
+/* ==============================
+   MESSAGES
+============================== */
+
+.error {
+    color: var(--error);
+    font-size: 14px;
+    font-weight: 600;
+    display: block;
+    margin: 5px 0 12px;
+}
+
+.success {
+    color: var(--success);
+    background: #edf7ed;
+    padding: 12px 16px;
+    border-radius: 9px;
+    font-size: 14px;
+    margin: 15px 0;
+}
+
+/* ==============================
+   FOOTER
+============================== */
 
 footer {
     text-align: center;
-    padding: 20px;
-    background-color: #8b3a3a;
+    padding: 25px 20px;
+    background: linear-gradient(135deg, #873b43, #642b33);
     color: white;
-    margin-top: 50px;
-} .error {
-      color: #c62828;
-      font-size: 14px;
-  } .success {
-          color: #2e7d32;
-          font-size: 14px;
-      }
+    margin-top: 60px;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* ==============================
+   RESPONSIVE DESIGN
+============================== */
+
+@media (max-width: 768px) {
+    header {
+        padding: 40px 15px;
+    }
+
+    main {
+        width: 100%;
+        padding: 15px;
+        margin: 25px auto;
+    }
+
+    section h2 {
+        font-size: 23px;
+    }
+
+    nav {
+        padding: 20px;
+    }
+
+    form {
+        padding: 20px;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    button,
+    input[type="submit"] {
+        max-width: 100%;
+    }
+}
+
+/* ==============================
+   RECIPE PAGE
+============================== */
+
+.page-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 22px 28px;
+    margin-bottom: 40px;
+}
+
+.page-navigation a {
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--primary);
+    transition: 0.2s ease;
+}
+
+.page-navigation a:hover {
+    color: var(--accent);
+}
+
+.recipe-list {
+    margin-top: 35px;
+}
+
+.recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 25px;
+    text-align: left;
+}
+
+.recipe-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.recipe-card h3 {
+    color: var(--primary);
+    font-size: 22px;
+    margin-bottom: 12px;
+}
+
+.recipe-description {
+    color: var(--muted);
+    margin-bottom: 20px;
+}
+
+.recipe-information {
+    background: #fcf6f1;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.recipe-information p {
+    margin-bottom: 7px;
+    font-size: 14px;
+}
+
+.recipe-information p:last-child {
+    margin-bottom: 0;
+}
+
+.recipe-information strong {
+    color: var(--primary-dark);
+}
+
+.button-link {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    padding: 11px 18px;
+    border-radius: 9px;
+    font-weight: 600;
+    transition: 0.25s ease;
+}
+
+.button-link:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(100, 43, 51, 0.2);
+}
+
+.empty-state {
+    background: white;
+    padding: 55px 25px;
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+.empty-state h3 {
+    color: var(--primary);
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.empty-state p {
+    color: var(--muted);
+    margin-bottom: 25px;
+}
+
+@media (max-width: 600px) {
+    .page-navigation {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .recipe-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==============================
+   HOME PAGE
+============================== */
+
+.home-header {
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #873b43, #642b33);
+}
+
+.hero-content {
+    max-width: 800px;
+    text-align: center;
+}
+
+.hero-label,
+.section-label {
+    display: inline-block;
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+}
+
+.hero-content h1 {
+    color: white;
+    font-size: clamp(30px, 4vw, 42px);
+    margin-bottom: 12px;
+}
+
+.hero-content p {
+    color: #f5e5df;
+    font-size: 16px;
+    max-width: 650px;
+    margin: 0 auto 18px;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.hero-buttons .button-link,
+.hero-buttons .button-outline {
+    padding: 14px 25px;
+}
+
+.button-outline {
+    display: inline-block;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 9px;
+    padding: 11px 18px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s ease;
+}
+
+.button-outline:hover {
+    background: white;
+    color: var(--primary);
+}
+
+.home-main {
+    max-width: 1100px;
+    width: 92%;
+    margin: 0 auto;
+    padding: 35px 15px;
+}
+
+.welcome-section {
+    text-align: center;
+    max-width: 750px;
+    margin: 0 auto 28px;
+}
+
+.welcome-section h2 {
+    color: var(--primary);
+    font-size: clamp(24px, 3vw, 30px);
+    margin-bottom: 15px;
+}
+
+.welcome-section p {
+    color: var(--muted);
+    font-size: 16px;
+}
+
+.home-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 18px;
+    margin: 25px 0 30px;
+}
+
+.feature-card {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    padding: 23px 20px;
+    min-height: 205px;
+    border-radius: 17px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    text-decoration: none;
+    transition: 0.25s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 30px rgba(75, 43, 38, 0.13);
+}
+
+.feature-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.feature-card h3 {
+    color: var(--primary);
+    font-size: 19px;
+    margin-bottom: 8px;
+}
+
+.feature-card p {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.feature-action {
+    color: var(--primary);
+    font-weight: 700;
+    margin-top: auto;
+    padding-top: 15px;
+}
+
+.guest-section {
+    background: white;
+    padding: 30px 22px;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+.guest-section h2 {
+    color: var(--primary);
+    margin-bottom: 12px;
+}
+
+.guest-section p {
+    color: var(--muted);
+    margin-bottom: 18px;
+}
+
+.logout-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.logout-section form {
+    display: inline-block;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+@media (max-width: 600px) {
+    .home-header {
+        min-height: 250px;
+        padding: 30px 18px;
+    }
+
+    .hero-content p {
+        font-size: 16px;
+    }
+
+    .home-main {
+        width: 100%;
+        padding: 35px 18px;
+    }
+
+    .home-features {
+        grid-template-columns: 1fr;
+    }
+}
+/* Meal Plans Page */
+
+.container {
+    width: 90%;
+    max-width: 1150px;
+    margin: 40px auto;
+}
+
+.page-header {
+    background: linear-gradient(135deg, #8b3a3a, #642b35);
+    color: white;
+    text-align: center;
+    padding: 55px 20px;
+}
+
+.page-header h1 {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.page-header p {
+    font-size: 17px;
+}
+
+.page-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 20px 25px;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+    margin-bottom: 40px;
+}
+
+.nav-link {
+    color: #8b3a3a;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn {
+    display: inline-block;
+    background: #8b3a3a;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn:hover {
+    background: #642b35;
+    transform: translateY(-2px);
+}
+
+.page-intro {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.page-intro h2 {
+    color: #8b3a3a;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.content-card {
+    background: white;
+    padding: 28px;
+    border-radius: 18px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+    border: 1px solid #f0dfd5;
+}
+
+.content-card h3 {
+    color: #8b3a3a;
+    font-size: 22px;
+    margin-bottom: 18px;
+}
+
+.card-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.card-detail {
+    margin: 12px 0;
+    color: #555;
+}
+
+.card-notes {
+    margin-top: 15px;
+    color: #777;
+    font-style: italic;
+}
+
+.card-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 22px;
+    flex-wrap: wrap;
+}
+
+.btn-secondary {
+    background: #c46b45;
+}
+
+.btn-secondary:hover {
+    background: #a95736;
+}
+
+.btn-danger {
+    background: #b83232;
+}
+
+.btn-danger:hover {
+    background: #8f2424;
+}
+
+.empty-state {
+    background: white;
+    text-align: center;
+    padding: 55px 25px;
+    border-radius: 18px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+}
+
+.empty-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.empty-state h2 {
+    color: #8b3a3a;
+    margin-bottom: 12px;
+}
+
+.empty-state p {
+    color: #777;
+    margin-bottom: 25px;
+}
+
+@media (max-width: 600px) {
+    .page-header h1 {
+        font-size: 28px;
+    }
+
+    .page-nav {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .card-actions {
+        flex-direction: column;
+    }
+}
+/* Compact management pages */
+
+.management-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.compact-header {
+    background: linear-gradient(135deg, #8b3a3a, #642b35);
+    color: white;
+    text-align: center;
+    padding: 28px 20px;
+}
+
+.compact-header h1 {
+    font-size: 32px;
+    margin-bottom: 5px;
+}
+
+.compact-header p {
+    font-size: 15px;
+}
+
+.management-container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 24px auto;
+    flex: 1;
+}
+
+.management-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 22px;
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.management-link {
+    color: #8b3a3a;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.management-link:hover {
+    color: #c46b45;
+}
+
+.management-button {
+    display: inline-block;
+    padding: 10px 17px;
+    background: #8b3a3a;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.management-button:hover {
+    background: #642b35;
+    transform: translateY(-2px);
+}
+
+.management-intro {
+    text-align: center;
+    margin: 25px 0 20px;
+}
+
+.management-intro h2 {
+    color: #8b3a3a;
+    font-size: 26px;
+    margin-bottom: 5px;
+}
+
+.management-intro p {
+    color: #777;
+    font-size: 14px;
+}
+
+.management-empty {
+    background: white;
+    border-radius: 16px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.management-icon {
+    font-size: 38px;
+    margin-bottom: 8px;
+}
+
+.management-empty h3 {
+    color: #8b3a3a;
+    margin-bottom: 7px;
+}
+
+.management-empty p {
+    color: #777;
+    margin-bottom: 18px;
+    font-size: 14px;
+}
+
+.management-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 18px;
+}
+
+.management-card {
+    background: white;
+    border: 1px solid #f0dfd5;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: 0.2s;
+}
+
+.management-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.management-card-icon {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.management-card h3 {
+    color: #8b3a3a;
+    font-size: 19px;
+    margin-bottom: 8px;
+}
+
+.management-description {
+    color: #777;
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+.management-actions {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.edit-button {
+    background: #c46b45;
+}
+
+.edit-button:hover {
+    background: #a95736;
+}
+
+.delete-button {
+    background: #b83232;
+}
+
+.delete-button:hover {
+    background: #8f2424;
+}
+
+.management-footer {
+    margin-top: auto;
+    padding: 16px;
+    text-align: center;
+    background: linear-gradient(135deg, #8b3a3a, #642b35);
+    color: white;
+}
+
+@media (max-width: 600px) {
+    .compact-header {
+        padding: 22px 15px;
+    }
+
+    .compact-header h1 {
+        font-size: 26px;
+    }
+
+    .management-nav {
+        flex-direction: column;
+    }
+
+    .management-container {
+        width: 94%;
+        margin: 18px auto;
+    }
+}
+/* Styled forms */
+
+.form-section {
+    max-width: 650px;
+    margin: 25px auto;
+    padding: 30px 35px;
+    background: white;
+    border: 1px solid #f0dfd5;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.form-heading {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.form-heading h2 {
+    color: #8b3a3a;
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.form-heading p {
+    color: #777;
+    font-size: 14px;
+}
+
+.styled-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.form-group label {
+    color: #642b35;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #ead8ce;
+    border-radius: 9px;
+    background: #fffdfb;
+    color: #333;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #8b3a3a;
+    box-shadow: 0 0 0 3px rgba(139, 58, 58, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 5px;
+}
+
+.cancel-button {
+    display: inline-block;
+    padding: 10px 17px;
+    color: #8b3a3a;
+    border: 1px solid #8b3a3a;
+    border-radius: 9px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.cancel-button:hover {
+    background: #fff1eb;
+}
+
+@media (max-width: 600px) {
+    .form-section {
+        padding: 22px 18px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .form-actions a,
+    .form-actions button {
+        text-align: center;
+    }
+}
+/* Recipe form */
+
+.recipe-form-section {
+    max-width: 760px;
+}
+
+.recipe-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.recipe-form-section .form-group textarea {
+    min-height: 65px;
+}
+
+.recipe-form-section .form-group:nth-child(3) textarea {
+    min-height: 105px;
+}
+
+.recipe-form-section .styled-form {
+    gap: 13px;
+}
+
+@media (max-width: 600px) {
+    .recipe-form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}
+/* Recipe details page */
+
+.recipe-details-section {
+    width: 100%;
+    max-width: 850px;
+    margin: 25px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+}
+
+.recipe-details-heading {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.recipe-details-icon {
+    display: block;
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.recipe-details-heading h2 {
+    color: #713b43;
+    margin: 0;
+}
+
+.recipe-details-content {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.recipe-detail-block {
+    padding: 18px;
+    background: #fff8f5;
+    border-radius: 12px;
+}
+
+.recipe-detail-block h3 {
+    color: #713b43;
+    margin: 0 0 10px;
+}
+
+.recipe-detail-block p {
+    line-height: 1.7;
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+.recipe-instructions {
+    white-space: pre-line;
+}
+
+.recipe-details-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.recipe-info-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: #f8f1ed;
+    border-radius: 12px;
+}
+
+.recipe-info-icon {
+    font-size: 25px;
+}
+
+.recipe-info-item div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.recipe-info-label {
+    font-size: 13px;
+    color: #777;
+}
+
+.recipe-info-item strong {
+    color: #713b43;
+}
+
+.recipe-details-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.recipe-details-actions form {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.recipe-details-actions .delete-button {
+    cursor: pointer;
+}
+
+@media (max-width: 650px) {
+    .recipe-details-section {
+        padding: 20px 15px;
+    }
+
+    .recipe-details-info {
+        grid-template-columns: 1fr;
+    }
+
+    .recipe-details-actions {
+        flex-direction: column;
+    }
+
+    .recipe-details-actions a,
+    .recipe-details-actions form,
+    .recipe-details-actions button {
+        width: 100%;
+        text-align: center;
+    }
+}
+/* Login page */
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.login-section {
+    width: 100%;
+    max-width: 480px;
+}
+
+.login-actions {
+    margin-top: 8px;
+}
+
+.login-actions button {
+    width: 100%;
+}
+
+.login-links {
+    text-align: center;
+    margin-top: 22px;
+    line-height: 1.8;
+}
+
+.login-links p {
+    margin-bottom: 12px;
+}
+
+.login-links a {
+    color: #713b43;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.login-links a:hover {
+    text-decoration: underline;
+}
+
+.login-section .success {
+    padding: 12px;
+    margin-bottom: 15px;
+    color: #286b3a;
+    background: #e7f5e9;
+    border-radius: 8px;
+    text-align: center;
+}
+/* Ingredient cards */
+
+.management-card-description {
+    color: #666;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    margin: 10px 0 18px;
+}
+
+.management-actions form {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+    width: auto;
+}
+
+.management-actions .delete-button {
+    cursor: pointer;
+}
+
+.management-actions .edit-button,
+.management-actions .delete-button {
+    display: inline-block;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    .management-actions {
+        flex-direction: column;
+    }
+
+    .management-actions a,
+    .management-actions form,
+    .management-actions button {
+        width: 100%;
+    }
+}
+/* =========================================
+   COMPACT HOMEPAGE - ONE SCREEN LAYOUT
+   ========================================= */
+
+.home-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+
+.home-page .home-header {
+    min-height: 0;
+    padding: 25px 20px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-page .hero-content {
+    width: 100%;
+    max-width: 1000px;
+    text-align: center;
+}
+
+.home-page .hero-label {
+    display: inline-block;
+    margin-bottom: 12px;
+    font-size: 13px;
+}
+
+.home-page .hero-content h1 {
+    font-size: clamp(27px, 3vw, 40px);
+    margin: 5px 0 12px;
+}
+
+.home-page .hero-content p {
+    font-size: 15px;
+    margin: 0 auto 18px;
+    line-height: 1.5;
+}
+
+.home-page .hero-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+/* Main */
+
+.home-page .home-main {
+    flex: 1;
+    width: 100%;
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 20px 25px 15px;
+}
+
+/* Welcome section */
+
+.home-page .welcome-section {
+    text-align: center;
+    margin: 0 auto 20px;
+}
+
+.home-page .section-label {
+    display: inline-block;
+    margin-bottom: 7px;
+    font-size: 13px;
+}
+
+.home-page .welcome-section h2 {
+    font-size: clamp(22px, 2.2vw, 29px);
+    margin: 5px 0 8px;
+}
+
+.home-page .welcome-section p {
+    max-width: 750px;
+    margin: 0 auto;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Feature cards */
+
+.home-page .home-features {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 15px;
+    margin: 18px auto;
+}
+
+.home-page .feature-card {
+    min-height: 185px;
+    padding: 18px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 18px;
+}
+
+.home-page .feature-icon {
+    font-size: 30px;
+    margin-bottom: 9px;
+}
+
+.home-page .feature-card h3 {
+    font-size: 18px;
+    margin: 5px 0 8px;
+}
+
+.home-page .feature-card p {
+    font-size: 13px;
+    line-height: 1.45;
+    margin: 0 0 12px;
+}
+
+.home-page .feature-action {
+    margin-top: auto;
+    font-size: 14px;
+}
+
+/* Guest section */
+
+.home-page .guest-section {
+    text-align: center;
+    margin: 15px auto 5px;
+    padding: 15px 20px;
+}
+
+.home-page .guest-section h2 {
+    font-size: 20px;
+    margin: 0 0 7px;
+}
+
+.home-page .guest-section p {
+    font-size: 14px;
+    margin: 0 0 12px;
+}
+
+.home-page .guest-section .button-link {
+    display: inline-block;
+}
+
+/* Logout */
+
+.home-page .logout-section {
+    display: flex;
+    justify-content: center;
+    margin: 15px auto 5px;
+}
+
+.home-page .logout-section form {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+/* Footer */
+
+.home-page .home-footer {
+    width: 100%;
+    margin-top: auto;
+    padding: 13px 15px;
+    text-align: center;
+}
+
+.home-page .home-footer p {
+    margin: 0;
+    font-size: 13px;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+    .home-page .home-features {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 550px) {
+    .home-page .home-header {
+        padding: 25px 15px;
+    }
+
+    .home-page .hero-buttons {
+        flex-direction: column;
+    }
+
+    .home-page .home-main {
+        padding: 20px 15px;
+    }
+
+    .home-page .home-features {
+        grid-template-columns: 1fr;
+    }
+
+    .home-page .feature-card {
+        min-height: 155px;
+    }
+}
+
+@media (max-height: 800px) and (min-width: 901px) {
+    .home-page .home-header {
+        padding-top: 15px;
+        padding-bottom: 18px;
+    }
+
+    .home-page .home-main {
+        padding-top: 12px;
+        padding-bottom: 8px;
+    }
+
+    .home-page .welcome-section {
+        margin-bottom: 12px;
+    }
+
+    .home-page .home-features {
+        margin: 12px auto;
+    }
+
+    .home-page .feature-card {
+        min-height: 155px;
+        padding: 12px;
+    }
+
+    .home-page .guest-section {
+        margin-top: 8px;
+        padding: 10px;
+    }
+}
+/* Компактни бутони при планираните хранения */
+.card-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.card-actions .delete-form {
+    display: inline-flex;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.card-actions .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    min-width: 0;
+    min-height: 0;
+    padding: 12px 22px;
+    margin: 0;
+    box-sizing: border-box;
+}

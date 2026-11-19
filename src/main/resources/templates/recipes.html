@@ -3,60 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Всички рецепти</title>
+    <title>Всички рецепти | Recipe App</title>
     <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
 
 <header>
-    <h1>Всички рецепти</h1>
-    <p>Открий нещо вкусно за приготвяне!</p>
+    <h1>🍽️ Нашите рецепти</h1>
+    <p>Вдъхновение за вкусни моменти всеки ден!</p>
 </header>
 
 <main>
-    <nav>
-        <a th:href="@{/}">Начало</a>
-        <a th:href="@{/recipes/add}">Добави рецепта</a>
+
+    <nav class="page-navigation">
+        <a th:href="@{/}">← Начало</a>
+        <a th:href="@{/recipes/add}">＋ Добави рецепта</a>
     </nav>
 
     <section>
-        <h2>Нашите рецепти</h2>
-
-        <p th:if="${#lists.isEmpty(recipes)}">
-            Все още няма добавени рецепти.
-        </p>
-
-        <div th:each="recipe : ${recipes}">
-            <h3 th:text="${recipe.title}">Име на рецептата</h3>
-
-            <p th:text="${recipe.description}">Описание</p>
-
-            <p>
-                Време за приготвяне:
-                <span th:text="${recipe.preparationTime}"></span> минути
-            </p>
-
-            <p>
-                Порции:
-                <span th:text="${recipe.servings}"></span>
-            </p>
-
-            <p>
-                Категория:
-                <span th:text="${recipe.category.name}"></span>
-            </p>
-
-            <a th:href="@{/recipes/{id}(id=${recipe.id})}">
-                Виж рецептата
-            </a>
-
-            <hr>
-        </div>
+        <h2>Открий любимия си вкус</h2>
+        <p>Разгледай нашата колекция от рецепти и избери какво да приготвиш днес.</p>
     </section>
+
+    <section class="recipe-list">
+
+        <div th:if="${#lists.isEmpty(recipes)}" class="empty-state">
+            <h3>🍲 Все още няма добавени рецепти</h3>
+            <p>Бъди първият, който ще сподели нещо вкусно!</p>
+            <a class="button-link" th:href="@{/recipes/add}">
+                Добави първата рецепта
+            </a>
+        </div>
+
+        <div class="recipe-grid" th:unless="${#lists.isEmpty(recipes)}">
+
+            <article class="recipe-card" th:each="recipe : ${recipes}">
+
+                <div class="recipe-card-content">
+
+                    <h3 th:text="${recipe.title}">Име на рецептата</h3>
+
+                    <p class="recipe-description"
+                       th:text="${recipe.description}">
+                        Описание на рецептата
+                    </p>
+
+                    <div class="recipe-information">
+
+                        <p>
+                            <strong>⏱️ Време:</strong>
+                            <span th:text="${recipe.preparationTime}"></span>
+                            минути
+                        </p>
+
+                        <p>
+                            <strong>🍽️ Порции:</strong>
+                            <span th:text="${recipe.servings}"></span>
+                        </p>
+
+                        <p>
+                            <strong>📂 Категория:</strong>
+                            <span th:text="${recipe.category.name}"></span>
+                        </p>
+
+                    </div>
+
+                    <a class="button-link"
+                       th:href="@{/recipes/{id}(id=${recipe.id})}">
+                        Виж рецептата →
+                    </a>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
 </main>
 
 <footer>
-    <p>&copy; 2026 Recipe App</p>
+    <p>© 2026 Recipe App | Създадено с любов към храната ❤️</p>
 </footer>
 
 </body>

@@ -3,82 +3,127 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Редактирай рецепта</title>
+  <title>Редактирай рецепта | Recipe App</title>
   <link rel="stylesheet" th:href="@{/style.css}">
 </head>
-<body>
+<body class="management-page">
 
-<header>
-  <h1>Редактирай рецепта</h1>
+<header class="compact-header">
+  <h1>✏️ Редактирай рецепта</h1>
   <p>Промени информацията за своето ястие!</p>
 </header>
 
-<main>
-  <nav>
-    <a th:href="@{/}">Начало</a>
-    <a th:href="@{/recipes}">Всички рецепти</a>
+<main class="management-container">
+
+  <nav class="management-nav">
+    <a th:href="@{/}" class="management-link">← Начало</a>
+    <a th:href="@{/recipes}" class="management-link">Всички рецепти</a>
   </nav>
 
-  <section>
-    <h2>Информация за рецептата</h2>
+  <section class="form-section recipe-form-section">
+
+    <div class="form-heading">
+      <div class="management-icon">🍲</div>
+      <h2>Информация за рецептата</h2>
+      <p>Направи необходимите промени и запази рецептата.</p>
+    </div>
 
     <form th:action="@{/recipes/{id}/edit(id=${recipe.id})}"
           th:object="${recipe}"
-          method="post">
+          method="post"
+          class="styled-form">
 
-      <label for="title">Име на рецептата:</label>
-      <input type="text" id="title" th:field="*{title}">
-      <p class="error" th:if="${#fields.hasErrors('title')}"
-         th:errors="*{title}"></p>
+      <div class="form-group">
+        <label for="title">Име на рецептата</label>
+        <input type="text"
+               id="title"
+               th:field="*{title}"
+               placeholder="Име на ястието">
 
-      <br><br>
+        <p class="error"
+           th:if="${#fields.hasErrors('title')}"
+           th:errors="*{title}"></p>
+      </div>
 
-      <label for="description">Описание:</label>
-      <textarea id="description" th:field="*{description}"></textarea>
-      <p class="error" th:if="${#fields.hasErrors('description')}"
-         th:errors="*{description}"></p>
+      <div class="form-group">
+        <label for="description">Описание</label>
+        <textarea id="description"
+                  th:field="*{description}"
+                  rows="2"
+                  placeholder="Кратко описание на ястието..."></textarea>
 
-      <br><br>
+        <p class="error"
+           th:if="${#fields.hasErrors('description')}"
+           th:errors="*{description}"></p>
+      </div>
 
-      <label for="instructions">Начин на приготвяне:</label>
-      <textarea id="instructions" th:field="*{instructions}"></textarea>
-      <p class="error" th:if="${#fields.hasErrors('instructions')}"
-         th:errors="*{instructions}"></p>
+      <div class="form-group">
+        <label for="instructions">Начин на приготвяне</label>
+        <textarea id="instructions"
+                  th:field="*{instructions}"
+                  rows="4"
+                  placeholder="Опиши стъпките за приготвяне..."></textarea>
 
-      <br><br>
+        <p class="error"
+           th:if="${#fields.hasErrors('instructions')}"
+           th:errors="*{instructions}"></p>
+      </div>
 
-      <label for="preparationTime">Време за приготвяне (минути):</label>
-      <input type="number" id="preparationTime"
-             th:field="*{preparationTime}">
-      <p class="error" th:if="${#fields.hasErrors('preparationTime')}"
-         th:errors="*{preparationTime}"></p>
+      <div class="recipe-form-row">
 
-      <br><br>
+        <div class="form-group">
+          <label for="preparationTime">Време (минути)</label>
+          <input type="number"
+                 id="preparationTime"
+                 th:field="*{preparationTime}"
+                 min="1">
 
-      <label for="servings">Брой порции:</label>
-      <input type="number" id="servings" th:field="*{servings}">
-      <p class="error" th:if="${#fields.hasErrors('servings')}"
-         th:errors="*{servings}"></p>
+          <p class="error"
+             th:if="${#fields.hasErrors('preparationTime')}"
+             th:errors="*{preparationTime}"></p>
+        </div>
 
-      <br><br>
+        <div class="form-group">
+          <label for="servings">Брой порции</label>
+          <input type="number"
+                 id="servings"
+                 th:field="*{servings}"
+                 min="1">
 
-      <label for="categoryId">Категория:</label>
-      <select id="categoryId" name="categoryId" required>
-        <option th:each="category : ${categories}"
-                th:value="${category.id}"
-                th:text="${category.name}"
-                th:selected="${category.id == recipe.category.id}">
-        </option>
-      </select>
+          <p class="error"
+             th:if="${#fields.hasErrors('servings')}"
+             th:errors="*{servings}"></p>
+        </div>
 
-      <br><br>
+      </div>
 
-      <button type="submit">Запази промените</button>
+      <div class="form-group">
+        <label for="categoryId">Категория</label>
+        <select id="categoryId" name="categoryId" required>
+          <option th:each="category : ${categories}"
+                  th:value="${category.id}"
+                  th:text="${category.name}"
+                  th:selected="${recipe.category != null and category.id == recipe.category.id}">
+          </option>
+        </select>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="management-button">
+          Запази промените
+        </button>
+
+        <a th:href="@{/recipes}" class="cancel-button">
+          Отказ
+        </a>
+      </div>
+
     </form>
   </section>
+
 </main>
 
-<footer>
+<footer class="management-footer">
   <p>&copy; 2026 Recipe App</p>
 </footer>
 

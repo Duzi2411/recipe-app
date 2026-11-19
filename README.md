@@ -1,6 +1,6 @@
 # Recipe Management System
 
-A web-based Recipe Management System built with Java and Spring Boot. The application allows users to manage recipes, ingredients, categories, and meal plans through a simple web interface.
+A web-based Recipe Management System built with Java and Spring Boot. The application allows users to create, organize, and manage recipes, ingredients, categories, and meal plans through a user-friendly web interface.
 
 ## Technologies
 
@@ -19,32 +19,73 @@ A web-based Recipe Management System built with Java and Spring Boot. The applic
 - User registration and login
 - Session-based authentication
 - Role-based access control (USER and ADMIN)
-- Create, view, edit, and delete recipes
-- Manage recipe categories
-- Manage ingredients
-- Create, view, edit, and delete meal plans
+- Password hashing using BCrypt
 - Server-side form validation
-- Password encryption using BCrypt
 - Custom exception handling
+- CRUD operations for recipes
+- CRUD operations for categories
+- CRUD operations for ingredients
+- CRUD operations for meal plans
 
-## Application Structure
+## Main Functionalities
+
+### Recipe Management
+- Create new recipes
+- View recipe details
+- Edit existing recipes
+- Delete recipes
+- Assign recipes to categorize
+
+### Category Management
+- Create categories
+- View all categories
+- Edit category information
+- Delete categories
+
+### Ingredient Management
+- Add ingredients
+- View ingredients
+- Edit ingredient information
+- Delete ingredients
+
+### Meal Planning
+- Create meal plans
+- View planned meals
+- Edit meal plans
+- Delete meal plans
+- Associate meal plans with recipes
+
+## Authentication and Authorization
+
+The application uses session-based authentication.
+
+- Guests can access public pages.
+- Registered users can access the available user functionalities.
+- Administrators can manage categories and ingredients.
+- Access to protected pages is controlled according to user roles.
+
+Passwords are securely hashed using BCrypt.
+
+## Application Architecture
 
 The application follows a layered architecture:
 
-- **Entity** – JPA entities representing the application data.
+- **Entity** – JPA entities representing application data.
 - **Repository** – Interfaces for database operations.
 - **Service** – Business logic and data management.
 - **Controller** – Handles HTTP requests and application navigation.
 - **Config** – Application and security configuration.
 - **Exception** – Custom exceptions and global exception handling.
 
-## Database
+## Database and Integrations
 
-The application uses MySQL.
+The application uses MySQL as its relational database.
 
-Create a database named:
+The database is named:
 
 `recipe_app`
+
+Spring Data JPA is used for database access and entity persistence.
 
 Configure your database connection in `src/main/resources/application.properties` with your local MySQL username and password.
 
@@ -58,9 +99,11 @@ Configure your database connection in `src/main/resources/application.properties
 
 3. Make sure Java 21 and MySQL are installed.
 
-4. Configure the database connection in `application.properties`.
+4. Create the `recipe_app` database.
 
-5. Run the application using Maven:
+5. Configure the database connection in `application.properties`.
+
+6. Run the application using Maven:
 
    `./mvnw spring-boot:run`
 
@@ -68,7 +111,7 @@ Configure your database connection in `src/main/resources/application.properties
 
    `mvnw.cmd spring-boot:run`
 
-6. Open the application in your browser:
+7. Open the application in your browser:
 
    `http://localhost:8080`
 

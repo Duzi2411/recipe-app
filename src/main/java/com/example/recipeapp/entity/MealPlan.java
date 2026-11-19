@@ -29,7 +29,6 @@ public class MealPlan {
     @Size(max = 500, message = "Бележките не могат да надвишават 500 символа.")
     private String notes;
 
-    @NotNull(message = "Избери рецепта.")
     @ManyToOne(optional = false)
     @JoinColumn(name = "recipe_id", nullable = false)
     private Recipe recipe;

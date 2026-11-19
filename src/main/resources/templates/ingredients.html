@@ -3,49 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Продукти</title>
+    <title>Продукти | Recipe App</title>
     <link rel="stylesheet" th:href="@{/style.css}">
 </head>
-<body>
+<body class="management-page">
 
-<header>
-    <h1>Продукти</h1>
+<header class="compact-header">
+    <h1>🥕 Продукти</h1>
     <p>Организирай продуктите за своите рецепти!</p>
 </header>
 
-<main>
-    <nav>
-        <a th:href="@{/}">Начало</a>
-        <a th:href="@{/ingredients/add}">Добави продукт</a>
-        <a th:href="@{/recipes}">Всички рецепти</a>
+<main class="management-container">
+
+    <nav class="management-nav">
+        <a th:href="@{/}" class="management-link">← Начало</a>
+        <a th:href="@{/ingredients/add}" class="management-button">
+            + Добави продукт
+        </a>
+        <a th:href="@{/recipes}" class="management-link">
+            Всички рецепти
+        </a>
     </nav>
 
     <section>
-        <h2>Всички продукти</h2>
 
-        <p th:if="${#lists.isEmpty(ingredients)}">
-            Все още няма добавени продукти.
-        </p>
-
-        <div th:each="ingredient : ${ingredients}">
-            <h3 th:text="${ingredient.name}">Име на продукт</h3>
-            <p th:text="${ingredient.description}">Описание</p>
-
-            <a th:href="@{/ingredients/{id}/edit(id=${ingredient.id})}">
-                Редактирай
-            </a>
-
-            <form th:action="@{/ingredients/{id}/delete(id=${ingredient.id})}"
-                  method="post">
-                <button type="submit">Изтрий</button>
-            </form>
-
-            <hr>
+        <div class="management-intro">
+            <h2>Всички продукти</h2>
+            <p>Тук можеш да управляваш продуктите за своите ястия.</p>
         </div>
+
+        <div th:if="${#lists.isEmpty(ingredients)}"
+             class="management-empty">
+            <span>🥕</span>
+            <h3>Все още няма добавени продукти.</h3>
+            <p>Добави първия продукт, за да започнеш!</p>
+            <a th:href="@{/ingredients/add}" class="management-button">
+                Добави продукт
+            </a>
+        </div>
+
+        <div th:unless="${#lists.isEmpty(ingredients)}"
+             class="management-grid">
+
+            <article th:each="ingredient : ${ingredients}"
+                     class="management-card">
+
+                <div class="management-card-icon">🥕</div>
+
+                <h3 th:text="${ingredient.name}">Име на продукт</h3>
+
+                <p class="management-card-description"
+                   th:text="${ingredient.description != null and !ingredient.description.isEmpty()
+                       ? ingredient.description : 'Няма добавено описание.'}">
+                    Описание на продукта
+                </p>
+
+                <div class="management-actions">
+
+                    <a th:href="@{/ingredients/{id}/edit(id=${ingredient.id})}"
+                       class="management-button edit-button">
+                        ✏️ Редактирай
+                    </a>
+
+                    <form th:action="@{/ingredients/{id}/delete(id=${ingredient.id})}"
+                          method="post"
+                          onsubmit="return confirm('Сигурни ли сте, че искате да изтриете този продукт?');">
+
+                        <button type="submit" class="management-button delete-button">
+                            🗑️ Изтрий
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </article>
+
+        </div>
+
     </section>
+
 </main>
 
-<footer>
+<footer class="management-footer">
     <p>&copy; 2026 Recipe App</p>
 </footer>
 

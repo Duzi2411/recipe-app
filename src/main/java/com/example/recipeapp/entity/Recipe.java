@@ -37,7 +37,6 @@ public class Recipe {
     @Column(nullable = false)
     private Integer servings;
 
-    @NotNull(message = "Изборът на категория е задължителен.")
     @ManyToOne(optional = false)
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;

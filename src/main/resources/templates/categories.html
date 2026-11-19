@@ -3,49 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Категории</title>
+    <title>Категории | Recipe App</title>
     <link rel="stylesheet" th:href="@{/style.css}">
 </head>
-<body>
+<body class="management-page">
 
-<header>
-    <h1>Категории</h1>
-    <p>Организирай рецептите си по категории!</p>
+<header class="compact-header">
+    <h1>📁 Категории</h1>
+    <p>Организирай рецептите си по категории</p>
 </header>
 
-<main>
-    <nav>
-        <a th:href="@{/}">Начало</a>
-        <a th:href="@{/categories/add}">Добави категория</a>
-        <a th:href="@{/recipes}">Всички рецепти</a>
+<main class="management-container">
+
+    <nav class="management-nav">
+        <a th:href="@{/}" class="management-link">← Начало</a>
+        <a th:href="@{/categories/add}" class="management-button">
+            + Добави категория
+        </a>
+        <a th:href="@{/recipes}" class="management-link">Всички рецепти</a>
     </nav>
 
-    <section>
-        <h2>Всички категории</h2>
-
-        <p th:if="${#lists.isEmpty(categories)}">
-            Все още няма добавени категории.
-        </p>
-
-        <div th:each="category : ${categories}">
-            <h3 th:text="${category.name}">Име на категория</h3>
-            <p th:text="${category.description}">Описание</p>
-
-            <a th:href="@{/categories/{id}/edit(id=${category.id})}">
-                Редактирай
-            </a>
-
-            <form th:action="@{/categories/{id}/delete(id=${category.id})}"
-                  method="post">
-                <button type="submit">Изтрий</button>
-            </form>
-
-            <hr>
-        </div>
+    <section class="management-intro">
+        <h2>Моите категории</h2>
+        <p>Подреди любимите си рецепти на едно място.</p>
     </section>
+
+    <section th:if="${#lists.isEmpty(categories)}"
+             class="management-empty">
+        <div class="management-icon">📂</div>
+        <h3>Все още няма добавени категории</h3>
+        <p>Създай първата си категория, за да организираш рецептите.</p>
+        <a th:href="@{/categories/add}" class="management-button">
+            + Създай категория
+        </a>
+    </section>
+
+    <section th:unless="${#lists.isEmpty(categories)}"
+             class="management-grid">
+
+        <article th:each="category : ${categories}"
+                 class="management-card">
+
+            <div class="management-card-icon">📁</div>
+
+            <h3 th:text="${category.name}">Име на категорията</h3>
+
+            <p class="management-description"
+               th:if="${category.description != null and !category.description.isEmpty()}"
+               th:text="${category.description}">
+            </p>
+
+            <p class="management-description"
+               th:if="${category.description == null or category.description.isEmpty()}">
+                Няма добавено описание.
+            </p>
+
+            <div class="management-actions">
+
+                <a th:href="@{/categories/{id}/edit(id=${category.id})}"
+                   class="management-button edit-button">
+                    Редактирай
+                </a>
+
+                <form th:action="@{/categories/{id}/delete(id=${category.id})}"
+                      method="post"
+                      onsubmit="return confirm('Сигурни ли сте, че искате да изтриете тази категория?');">
+
+                    <button type="submit" class="management-button delete-button">
+                        Изтрий
+                    </button>
+
+                </form>
+
+            </div>
+        </article>
+
+    </section>
+
 </main>
 
-<footer>
+<footer class="management-footer">
     <p>&copy; 2026 Recipe App</p>
 </footer>
 

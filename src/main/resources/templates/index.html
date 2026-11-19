@@ -3,45 +3,149 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Recipe App</title>
+  <title>Recipe App | Начало</title>
   <link rel="stylesheet" th:href="@{/style.css}">
 </head>
-<body>
+<body class="home-page">
 
-<main class="container">
+<header class="home-header">
+  <div class="hero-content">
 
-  <h1>Добре дошли в Recipe App!</h1>
-  <p>Откривай, създавай и управлявай любимите си рецепти.</p>
+    <span class="hero-label">❤️ С любов към храната</span>
 
-  <nav>
-    <a th:if="${session.user_id == null}" th:href="@{/login}">Вход</a>
-    <a th:if="${session.user_id == null}" th:href="@{/register}">Регистрация</a>
+    <h1>Добре дошли в Recipe App!</h1>
 
-    <a th:if="${session.user_id != null}" th:href="@{/recipes}">Рецепти</a>
+    <p>
+      Откривай нови вкусове, създавай любими рецепти
+      и планирай вкусните си моменти.
+    </p>
 
-    <a th:if="${session.user_id != null}" th:href="@{/meal-plans}">Планирани хранения</a>
+    <div class="hero-buttons" th:if="${session.user_id == null}">
+      <a class="button-link" th:href="@{/login}">
+        Влез в профила си
+      </a>
 
-    <a th:if="${session.user_role == 'ADMIN'}" th:href="@{/categories}">Категории</a>
-    <a th:if="${session.user_role == 'ADMIN'}" th:href="@{/ingredients}">Съставки</a>
+      <a class="button-outline" th:href="@{/register}">
+        Създай профил
+      </a>
+    </div>
 
-    <form th:if="${session.user_id != null}"
-          th:action="@{/logout}" method="post">
-      <button type="submit">Изход</button>
-    </form>
-  </nav>
+    <div class="hero-buttons" th:if="${session.user_id != null}">
+      <a class="button-link" th:href="@{/recipes}">
+        Разгледай рецептите
+      </a>
+    </div>
 
-  <section th:if="${session.user_id == null}">
-    <h2>Започни своето кулинарно приключение!</h2>
-    <p>Влез в профила си или се регистрирай, за да използваш приложението.</p>
+  </div>
+</header>
+
+<main class="home-main">
+
+  <section class="welcome-section">
+        <span class="section-label"
+              th:if="${session.user_id == null}">
+            Твоето кулинарно място
+        </span>
+
+    <span class="section-label"
+          th:if="${session.user_id != null}">
+            Радваме се, че си тук!
+        </span>
+
+    <h2 th:if="${session.user_id == null}">
+      Всяка рецепта започва с вдъхновение.
+    </h2>
+
+    <h2 th:if="${session.user_id != null}">
+      Какво ще сготвим днес?
+    </h2>
+
+    <p th:if="${session.user_id == null}">
+      Присъедини се към нашето кулинарно пространство.
+      Създавай рецепти, организирай храненията си
+      и откривай нови идеи за вкусни ястия.
+    </p>
+
+    <p th:if="${session.user_id != null}">
+      Избери любима рецепта, организирай менюто си
+      и направи деня си още по-вкусен.
+    </p>
   </section>
 
-  <section th:if="${session.user_id != null}">
-    <h2>Радваме се, че си тук!</h2>
-    <p>Избери рецепта и започни да готвиш.</p>
-    <a th:href="@{/recipes}">Разгледай рецептите</a>
+  <section class="home-features">
+
+    <a class="feature-card"
+       th:if="${session.user_id != null}"
+       th:href="@{/recipes}">
+
+      <span class="feature-icon">🍽️</span>
+      <h3>Рецепти</h3>
+      <p>Откривай, създавай и управлявай вкусни рецепти.</p>
+      <span class="feature-action">Разгледай →</span>
+    </a>
+
+    <a class="feature-card"
+       th:if="${session.user_id != null}"
+       th:href="@{/meal-plans}">
+
+      <span class="feature-icon">📅</span>
+      <h3>Планирани хранения</h3>
+      <p>Организирай храненията си и планирай менюто.</p>
+      <span class="feature-action">Планирай →</span>
+    </a>
+
+    <a class="feature-card"
+       th:if="${session.user_role == 'ADMIN'}"
+       th:href="@{/categories}">
+
+      <span class="feature-icon">📂</span>
+      <h3>Категории</h3>
+      <p>Управлявай категориите на рецептите.</p>
+      <span class="feature-action">Управлявай →</span>
+    </a>
+
+    <a class="feature-card"
+       th:if="${session.user_role == 'ADMIN'}"
+       th:href="@{/ingredients}">
+
+      <span class="feature-icon">🥕</span>
+      <h3>Съставки</h3>
+      <p>Добавяй и организирай съставките.</p>
+      <span class="feature-action">Управлявай →</span>
+    </a>
+
+  </section>
+
+  <section class="guest-section"
+           th:if="${session.user_id == null}">
+
+    <h2>Готов ли си за нещо вкусно?</h2>
+
+    <p>
+      Създай своя профил и започни кулинарното си
+      приключение още днес.
+    </p>
+
+    <a class="button-link" th:href="@{/register}">
+      Регистрирай се
+    </a>
+
+  </section>
+
+  <section class="logout-section"
+           th:if="${session.user_id != null}">
+
+    <form th:action="@{/logout}" method="post">
+      <button type="submit">Изход от профила</button>
+    </form>
+
   </section>
 
 </main>
+
+<footer class="home-footer">
+  <p>© 2026 Recipe App | Създадено с любов към храната ❤️</p>
+</footer>
 
 </body>
 </html>

@@ -2,42 +2,90 @@
 <html lang="bg" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Планирани хранения</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Планирани хранения | Recipe App</title>
     <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
-<main class="container">
+
+<header class="page-header">
     <h1>Планирани хранения</h1>
+    <p>Организирай менюто си и планирай вкусните си моменти!</p>
+</header>
 
-    <a th:href="@{/meal-plans/add}">Добави хранене</a>
+<main class="container">
 
-    <p th:if="${#lists.isEmpty(mealPlans)}">
-        Все още няма планирани хранения.
-    </p>
+    <nav class="page-nav">
+        <a th:href="@{/}" class="nav-link">← Начало</a>
+        <a th:href="@{/meal-plans/add}" class="btn">+ Добави хранене</a>
+    </nav>
 
-    <div th:each="mealPlan : ${mealPlans}">
-        <h2 th:text="${mealPlan.title}"></h2>
-        <p>
-            Дата:
-            <span th:text="${mealPlan.plannedDate}"></span>
-        </p>
-        <p>
-            Рецепта:
-            <span th:text="${mealPlan.recipe.title}"></span>
-        </p>
-        <p th:text="${mealPlan.notes}"></p>
+    <section class="page-intro">
+        <h2>Твоето меню</h2>
+        <p>Всички хранения, които си планирал, на едно място.</p>
+    </section>
 
-        <a th:href="@{/meal-plans/{id}/edit(id=${mealPlan.id})}">
-            Редактирай
+    <section th:if="${#lists.isEmpty(mealPlans)}" class="empty-state">
+        <div class="empty-icon">📅</div>
+        <h2>Все още няма планирани хранения</h2>
+        <p>Започни да организираш менюто си още сега!</p>
+        <a th:href="@{/meal-plans/add}" class="btn">
+            Добави първото хранене
         </a>
+    </section>
 
-        <form th:action="@{/meal-plans/{id}/delete(id=${mealPlan.id})}"
-              method="post">
-            <button type="submit">Изтрий</button>
-        </form>
-    </div>
+    <section th:unless="${#lists.isEmpty(mealPlans)}" class="card-grid">
 
-    <a th:href="@{/}">Начало</a>
+        <article th:each="mealPlan : ${mealPlans}" class="content-card">
+
+            <div class="card-icon">🍽️</div>
+
+            <h3 th:text="${mealPlan.title}">Име на храненето</h3>
+
+            <p class="card-detail">
+                <strong>📅 Дата:</strong>
+                <span th:text="${mealPlan.plannedDate}"></span>
+            </p>
+
+            <p class="card-detail">
+                <strong>🍲 Рецепта:</strong>
+                <span th:text="${mealPlan.recipe.title}"></span>
+            </p>
+
+            <p class="card-notes"
+               th:if="${mealPlan.notes != null and !mealPlan.notes.isEmpty()}"
+               th:text="${mealPlan.notes}">
+            </p>
+
+            <div class="card-actions">
+
+                <a th:href="@{/meal-plans/{id}/edit(id=${mealPlan.id})}"
+                   class="btn btn-secondary">
+                    Редактирай
+                </a>
+
+                <form class="delete-form"
+                      th:action="@{/meal-plans/{id}/delete(id=${mealPlan.id})}"
+                      method="post"
+                      onsubmit="return confirm('Сигурни ли сте, че искате да изтриете това хранене?');">
+
+                    <button type="submit" class="btn btn-danger">
+                        Изтрий
+                    </button>
+
+                </form>
+
+            </div>
+
+        </article>
+
+    </section>
+
 </main>
+
+<footer>
+    <p>&copy; 2026 Recipe App</p>
+</footer>
+
 </body>
 </html>

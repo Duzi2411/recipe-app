@@ -3,81 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Добави рецепта</title>
+    <title>Добави рецепта | Recipe App</title>
     <link rel="stylesheet" th:href="@{/style.css}">
 </head>
-<body>
+<body class="management-page">
 
-<header>
-    <h1>Добави нова рецепта</h1>
+<header class="compact-header">
+    <h1>🍽️ Добави нова рецепта</h1>
     <p>Сподели любимото си ястие!</p>
 </header>
 
-<main>
-    <nav>
-        <a th:href="@{/}">Начало</a>
-        <a th:href="@{/recipes}">Всички рецепти</a>
+<main class="management-container">
+
+    <nav class="management-nav">
+        <a th:href="@{/}" class="management-link">← Начало</a>
+        <a th:href="@{/recipes}" class="management-link">Всички рецепти</a>
     </nav>
 
-    <section>
-        <h2>Информация за рецептата</h2>
+    <section class="form-section recipe-form-section">
 
-        <form th:action="@{/recipes/add}" th:object="${recipe}" method="post">
+        <div class="form-heading">
+            <div class="management-icon">👩‍🍳</div>
+            <h2>Информация за рецептата</h2>
+            <p>Попълни необходимите данни за своето ястие.</p>
+        </div>
 
-            <label for="title">Име на рецептата:</label>
-            <input type="text" id="title" th:field="*{title}">
-            <p class="error" th:if="${#fields.hasErrors('title')}"
-               th:errors="*{title}"></p>
+        <form th:action="@{/recipes/add}"
+              th:object="${recipe}"
+              method="post"
+              class="styled-form">
 
-            <br><br>
+            <div class="form-group">
+                <label for="title">Име на рецептата</label>
+                <input type="text"
+                       id="title"
+                       th:field="*{title}"
+                       placeholder="Например: Домашна лазаня">
 
-            <label for="description">Описание:</label>
-            <textarea id="description" th:field="*{description}"></textarea>
-            <p class="error" th:if="${#fields.hasErrors('description')}"
-               th:errors="*{description}"></p>
+                <p class="error"
+                   th:if="${#fields.hasErrors('title')}"
+                   th:errors="*{title}"></p>
+            </div>
 
-            <br><br>
+            <div class="form-group">
+                <label for="description">Описание</label>
+                <textarea id="description"
+                          th:field="*{description}"
+                          rows="2"
+                          placeholder="Кратко описание на ястието..."></textarea>
 
-            <label for="instructions">Начин на приготвяне:</label>
-            <textarea id="instructions" th:field="*{instructions}"></textarea>
-            <p class="error" th:if="${#fields.hasErrors('instructions')}"
-               th:errors="*{instructions}"></p>
+                <p class="error"
+                   th:if="${#fields.hasErrors('description')}"
+                   th:errors="*{description}"></p>
+            </div>
 
-            <br><br>
+            <div class="form-group">
+                <label for="instructions">Начин на приготвяне</label>
+                <textarea id="instructions"
+                          th:field="*{instructions}"
+                          rows="4"
+                          placeholder="Опиши стъпките за приготвяне..."></textarea>
 
-            <label for="preparationTime">Време за приготвяне (минути):</label>
-            <input type="number" id="preparationTime"
-                   th:field="*{preparationTime}">
-            <p class="error" th:if="${#fields.hasErrors('preparationTime')}"
-               th:errors="*{preparationTime}"></p>
+                <p class="error"
+                   th:if="${#fields.hasErrors('instructions')}"
+                   th:errors="*{instructions}"></p>
+            </div>
 
-            <br><br>
+            <div class="recipe-form-row">
 
-            <label for="servings">Брой порции:</label>
-            <input type="number" id="servings" th:field="*{servings}">
-            <p class="error" th:if="${#fields.hasErrors('servings')}"
-               th:errors="*{servings}"></p>
+                <div class="form-group">
+                    <label for="preparationTime">Време (минути)</label>
+                    <input type="number"
+                           id="preparationTime"
+                           th:field="*{preparationTime}"
+                           min="1"
+                           placeholder="30">
 
-            <br><br>
+                    <p class="error"
+                       th:if="${#fields.hasErrors('preparationTime')}"
+                       th:errors="*{preparationTime}"></p>
+                </div>
 
-            <label for="categoryId">Категория:</label>
-            <select id="categoryId" name="categoryId" required>
-                <option value="">Избери категория</option>
-                <option th:each="category : ${categories}"
-                        th:value="${category.id}"
-                        th:text="${category.name}">
-                </option>
-            </select>
+                <div class="form-group">
+                    <label for="servings">Брой порции</label>
+                    <input type="number"
+                           id="servings"
+                           th:field="*{servings}"
+                           min="1"
+                           placeholder="4">
 
-            <br><br>
+                    <p class="error"
+                       th:if="${#fields.hasErrors('servings')}"
+                       th:errors="*{servings}"></p>
+                </div>
 
-            <button type="submit">Запази рецептата</button>
+            </div>
+
+            <div class="form-group">
+                <label for="categoryId">Категория</label>
+                <select id="categoryId" name="categoryId" required>
+                    <option value="">Избери категория</option>
+
+                    <option th:each="category : ${categories}"
+                            th:value="${category.id}"
+                            th:text="${category.name}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="management-button">
+                    Запази рецептата
+                </button>
+
+                <a th:href="@{/recipes}" class="cancel-button">
+                    Отказ
+                </a>
+            </div>
 
         </form>
     </section>
+
 </main>
 
-<footer>
+<footer class="management-footer">
     <p>&copy; 2026 Recipe App</p>
 </footer>
 
