@@ -1,6 +1,7 @@
 package com.example.recipeapp.service;
 
 import com.example.recipeapp.entity.Category;
+import com.example.recipeapp.exception.CategoryAlreadyExistsException;
 import com.example.recipeapp.exception.CategoryNotFoundException;
 import com.example.recipeapp.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
@@ -24,17 +25,29 @@ public class CategoryService {
     public Category findById(UUID id) {
         return categoryRepository.findById(id)
                 .orElseThrow(() ->
-                        new CategoryNotFoundException(
-                                "Категорията с ID " + id + " не е намерена."
-                        ));
+                        new CategoryNotFoundException("Категорията не е намерена."));
     }
 
     public Category create(Category category) {
+        if (categoryRepository.existsByNameIgnoreCase(category.getName())) {
+            throw new CategoryAlreadyExistsException(
+                    "Категория с това име вече съществува.");
+        }
+
         return categoryRepository.save(category);
     }
 
     public Category update(UUID id, Category updatedCategory) {
         Category category = findById(id);
+
+        boolean nameAlreadyExists = categoryRepository
+                .existsByNameIgnoreCase(updatedCategory.getName());
+
+        if (nameAlreadyExists
+                && !category.getName().equalsIgnoreCase(updatedCategory.getName())) {
+            throw new CategoryAlreadyExistsException(
+                    "Категория с това име вече съществува.");
+        }
 
         category.setName(updatedCategory.getName());
         category.setDescription(updatedCategory.getDescription());
