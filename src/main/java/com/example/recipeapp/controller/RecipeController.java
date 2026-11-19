@@ -48,8 +48,13 @@ public class RecipeController {
     public String addRecipe(
             @Valid @ModelAttribute("recipe") Recipe recipe,
             BindingResult bindingResult,
-            @RequestParam UUID categoryId,
+            @RequestParam(required = false) UUID categoryId,
             Model model) {
+
+        if (categoryId == null) {
+            bindingResult.rejectValue("category", "NotNull",
+                    "Избери категория.");
+        }
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("categories", categoryService.findAll());
@@ -76,8 +81,13 @@ public class RecipeController {
             @PathVariable UUID id,
             @Valid @ModelAttribute("recipe") Recipe updatedRecipe,
             BindingResult bindingResult,
-            @RequestParam UUID categoryId,
+            @RequestParam(required = false) UUID categoryId,
             Model model) {
+
+        if (categoryId == null) {
+            bindingResult.rejectValue("category", "NotNull",
+                    "Избери категория.");
+        }
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("categories", categoryService.findAll());
