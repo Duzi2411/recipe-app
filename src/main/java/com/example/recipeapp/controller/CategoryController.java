@@ -1,6 +1,7 @@
 package com.example.recipeapp.controller;
 
 import com.example.recipeapp.entity.Category;
+import com.example.recipeapp.exception.CategoryAlreadyExistsException;
 import com.example.recipeapp.service.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -41,7 +42,13 @@ public class CategoryController {
             return "add-category";
         }
 
-        categoryService.create(category);
+        try {
+            categoryService.create(category);
+        } catch (CategoryAlreadyExistsException exception) {
+            bindingResult.rejectValue("name", "duplicate", exception.getMessage());
+            return "add-category";
+        }
+
         return "redirect:/categories";
     }
 
@@ -61,7 +68,13 @@ public class CategoryController {
             return "edit-category";
         }
 
-        categoryService.update(id, updatedCategory);
+        try {
+            categoryService.update(id, updatedCategory);
+        } catch (CategoryAlreadyExistsException exception) {
+            bindingResult.rejectValue("name", "duplicate", exception.getMessage());
+            return "edit-category";
+        }
+
         return "redirect:/categories";
     }
 
