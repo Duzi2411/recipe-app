@@ -1,6 +1,7 @@
 package com.example.recipeapp.controller;
 
 import com.example.recipeapp.entity.Ingredient;
+import com.example.recipeapp.exception.IngredientAlreadyExistsException;
 import com.example.recipeapp.service.IngredientService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -41,7 +42,13 @@ public class IngredientController {
             return "add-ingredient";
         }
 
-        ingredientService.create(ingredient);
+        try {
+            ingredientService.create(ingredient);
+        } catch (IngredientAlreadyExistsException exception) {
+            bindingResult.rejectValue("name", "duplicate", exception.getMessage());
+            return "add-ingredient";
+        }
+
         return "redirect:/ingredients";
     }
 
@@ -61,7 +68,13 @@ public class IngredientController {
             return "edit-ingredient";
         }
 
-        ingredientService.update(id, updatedIngredient);
+        try {
+            ingredientService.update(id, updatedIngredient);
+        } catch (IngredientAlreadyExistsException exception) {
+            bindingResult.rejectValue("name", "duplicate", exception.getMessage());
+            return "edit-ingredient";
+        }
+
         return "redirect:/ingredients";
     }
 
